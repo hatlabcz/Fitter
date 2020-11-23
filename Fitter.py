@@ -11,14 +11,11 @@ class Fitter:
 
     def fit(self, coordinates: np.ndarray, data: np.ndarray,
             guess_params:List[str]=[]):
-        params =  self.model.make_params()
+        params =  self.fitting_module.default_parameters()
         guess_allParams = self.fitting_module.guess_allParams(coordinates, data)
         for gp in guess_params:
             params[gp] = guess_allParams[gp]
-        params['omega'].value = 0.9
-        params['phi'].value = 0.5
         print (params)
         result = self.model.fit(data, params, coordinates=coordinates)
-
         return result
 
